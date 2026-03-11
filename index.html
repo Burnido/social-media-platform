@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basher - Social Media Platform</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-sphere"></i>
+                <span>Basher</span>
+            </div>
+            <div class="navbar-links">
+                <a href="#home" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="#explore" class="nav-link"><i class="fas fa-compass"></i> Explore</a>
+                <a href="#messages" class="nav-link"><i class="fas fa-envelope"></i> Messages</a>
+                <a href="#notifications" class="nav-link"><i class="fas fa-bell"></i> Notifications</a>
+                <a href="#profile" class="nav-link"><i class="fas fa-user"></i> Profile</a>
+            </div>
+            <div class="search-bar">
+                <input type="text" placeholder="Search Basher...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="user-profile">
+                <img src="https://via.placeholder.com/80" alt="Profile" class="profile-img">
+                <h3>John Doe</h3>
+                <p>@johndoe</p>
+                <div class="user-stats">
+                    <div class="stat">
+                        <span class="stat-value">1.2K</span>
+                        <span class="stat-label">Followers</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">350</span>
+                        <span class="stat-label">Following</span>
+                    </div>
+                </div>
+                <button class="btn btn-primary">Edit Profile</button>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>Trending</h4>
+                <div class="trending-item">
+                    <span class="trending-tag">#Technology</span>
+                    <p>2.5M Posts</p>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-tag">#WebDevelopment</span>
+                    <p>1.8M Posts</p>
+                </div>
+                <div class="trending-item">
+                    <span class="trending-tag">#Design</span>
+                    <p>1.2M Posts</p>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Feed -->
+        <main class="feed">
+            <!-- Create Post -->
+            <div class="post-creator">
+                <img src="https://via.placeholder.com/50" alt="Your Profile" class="creator-img">
+                <div class="input-group">
+                    <textarea id="postInput" placeholder="What's on your mind?" rows="3"></textarea>
+                    <div class="creator-actions">
+                        <div class="action-icons">
+                            <button title="Add Photo"><i class="fas fa-image"></i></button>
+                            <button title="Add Video"><i class="fas fa-video"></i></button>
+                            <button title="Add Emoji"><i class="fas fa-face-smile"></i></button>
+                            <button title="Add Poll"><i class="fas fa-chart-bar"></i></button>
+                        </div>
+                        <button class="btn btn-post" onclick="createPost()">Post</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Posts Feed -->
+            <div class="posts-container" id="postsContainer">
+                <!-- Sample Post 1 -->
+                <article class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="User">
+                        <div class="post-user-info">
+                            <h3>Sarah Johnson</h3>
+                            <p>@sarahjohnson • 2 hours ago</p>
+                        </div>
+                        <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                    </div>
+
+                    <div class="post-content">
+                        <p>Just launched my new portfolio website! Check it out and let me know what you think. The design process was really fun 🎨</p>
+                        <img src="https://via.placeholder.com/500x300" alt="Portfolio Screenshot" class="post-media">
+                    </div>
+
+                    <div class="post-stats">
+                        <span><i class="fas fa-heart"></i> 234 Likes</span>
+                        <span><i class="fas fa-comment"></i> 45 Comments</span>
+                        <span><i class="fas fa-share"></i> 12 Shares</span>
+                    </div>
+
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fas fa-heart"></i> Like</button>
+                        <button class="action-btn"><i class="fas fa-comment"></i> Comment</button>
+                        <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+                    </div>
+                </article>
+
+                <!-- Sample Post 2 -->
+                <article class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="User">
+                        <div class="post-user-info">
+                            <h3>Mike Chen</h3>
+                            <p>@mikechen • 5 hours ago</p>
+                        </div>
+                        <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                    </div>
+
+                    <div class="post-content">
+                        <p>Tips for better web performance: 1. Optimize images, 2. Minify CSS/JS, 3. Use lazy loading, 4. Enable caching, 5. Use CDN. These simple changes can improve load times by 50%+</p>
+                    </div>
+
+                    <div class="post-stats">
+                        <span><i class="fas fa-heart"></i> 567 Likes</span>
+                        <span><i class="fas fa-comment"></i> 89 Comments</span>
+                        <span><i class="fas fa-share"></i> 234 Shares</span>
+                    </div>
+
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fas fa-heart"></i> Like</button>
+                        <button class="action-btn"><i class="fas fa-comment"></i> Comment</button>
+                        <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+                    </div>
+                </article>
+
+                <!-- Sample Post 3 -->
+                <article class="post">
+                    <div class="post-header">
+                        <img src="https://via.placeholder.com/50" alt="User">
+                        <div class="post-user-info">
+                            <h3>Emma Wilson</h3>
+                            <p>@emmawilson • 8 hours ago</p>
+                        </div>
+                        <button class="more-btn"><i class="fas fa-ellipsis-h"></i></button>
+                    </div>
+
+                    <div class="post-content">
+                        <p>Excited to announce that I'm starting a new role as Senior UX Designer! Looking forward to this new chapter and working with an amazing team 🚀</p>
+                        <img src="https://via.placeholder.com/500x300" alt="Announcement" class="post-media">
+                    </div>
+
+                    <div class="post-stats">
+                        <span><i class="fas fa-heart"></i> 892 Likes</span>
+                        <span><i class="fas fa-comment"></i> 156 Comments</span>
+                        <span><i class="fas fa-share"></i> 445 Shares</span>
+                    </div>
+
+                    <div class="post-actions">
+                        <button class="action-btn"><i class="fas fa-heart"></i> Like</button>
+                        <button class="action-btn"><i class="fas fa-comment"></i> Comment</button>
+                        <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+                        <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
+                    </div>
+                </article>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <div class="sidebar-section">
+                <h4>Suggested For You</h4>
+                <div class="suggested-user">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div class="suggested-info">
+                        <h5>Alex Rodriguez</h5>
+                        <p>@alexrodriguez</p>
+                    </div>
+                    <button class="btn btn-small">Follow</button>
+                </div>
+                <div class="suggested-user">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div class="suggested-info">
+                        <h5>Lisa Park</h5>
+                        <p>@lisapark</p>
+                    </div>
+                    <button class="btn btn-small">Follow</button>
+                </div>
+                <div class="suggested-user">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <div class="suggested-info">
+                        <h5>David Brown</h5>
+                        <p>@davidbrown</p>
+                    </div>
+                    <button class="btn btn-small">Follow</button>
+                </div>
+            </div>
+
+            <div class="sidebar-section">
+                <h4>What's Happening</h4>
+                <div class="news-item">
+                    <p class="news-category">Technology • Trending Worldwide</p>
+                    <h5>Artificial Intelligence</h5>
+                    <p>1.2M posts</p>
+                </div>
+                <div class="news-item">
+                    <p class="news-category">Business • Live</p>
+                    <h5>Stock Market Updates</h5>
+                    <p>890K posts</p>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
