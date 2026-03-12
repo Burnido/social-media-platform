@@ -4,7 +4,7 @@
 function initializeUsers() {
     const users = JSON.parse(localStorage.getItem('users') || '[]');
     
-    // Add demo user if no users exist
+    // Add demo and burnido users if no users exist
     if (users.length === 0) {
         const demoUser = {
             id: 1,
@@ -12,7 +12,14 @@ function initializeUsers() {
             email: 'demo@basher.com',
             password: 'demo123' // In a real app, this would be hashed
         };
+        const burnidoUser = {
+            id: 2,
+            username: 'burnido',
+            email: 'burnido@basher.com',
+            password: '1234' // In a real app, this would be hashed
+        };
         users.push(demoUser);
+        users.push(burnidoUser);
         localStorage.setItem('users', JSON.stringify(users));
     }
 }
