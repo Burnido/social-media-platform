@@ -1,16 +1,82 @@
+// small in-memory database stored in localStorage (temporary storage)
+let selectedImageData = null;
+
+// Get the hidden file input
+const photoInput = document.getElementById('photoInput');
+photoInput.addEventListener('change', handlePhotoSelected);
+
+// Wire up the add photo button
+const addPhotoBtn = document.getElementById('addPhotoBtn');
+if (addPhotoBtn) {
+    addPhotoBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        photoInput.click();
+    });
+}
+
+function handlePhotoSelected(e) {
+    const file = e.target.files[0];
+    if (!file) {
+        selectedImageData = null;
+        updatePhotoPreview();
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        selectedImageData = evt.target.result;
+        updatePhotoPreview();
+    };
+    reader.readAsDataURL(file);
+}
+
+function updatePhotoPreview() {
+    const preview = document.getElementById('photoPreview');
+    preview.innerHTML = '';
+    if (selectedImageData) {
+        const img = document.createElement('img');
+        img.src = selectedImageData;
+        preview.appendChild(img);
+    }
+}
+
 // Create Post Functionality
 function createPost() {
     const postInput = document.getElementById('postInput');
     const postText = postInput.value.trim();
     
-    if (postText === '') {
-        alert('Please write something to post!');
+    if (postText === '' && !selectedImageData) {
+        alert('Please write something or choose a photo to post!');
         return;
     }
     
-    // Create new post element
+    const postObj = {
+        text: postText,
+        image: selectedImageData,
+        timestamp: new Date().toISOString()
+    };
+
+    // save to "database"
+    let posts = JSON.parse(localStorage.getItem('posts') || '[]');
+    posts.unshift(postObj);
+    localStorage.setItem('posts', JSON.stringify(posts));
+
+    renderPost(postObj, true);
+
+    // clear inputs
+    postInput.value = '';
+    postInput.style.height = 'auto';
+    selectedImageData = null;
+    updatePhotoPreview();
+    
+    console.log('Post created:', postObj);
+}
+
+function renderPost(postObj, prepend = false) {
     const newPost = document.createElement('article');
     newPost.classList.add('post');
+
+    const imageHtml = postObj.image ? `<img src="${postObj.image}" alt="Post Image" class="post-media">` : '';
+
     newPost.innerHTML = `
         <div class="post-header">
             <img src="https://via.placeholder.com/50" alt="User">
@@ -22,7 +88,8 @@ function createPost() {
         </div>
 
         <div class="post-content">
-            <p>${postText}</p>
+            <p>${postObj.text || ''}</p>
+            ${imageHtml}
         </div>
 
         <div class="post-stats">
@@ -32,22 +99,40 @@ function createPost() {
         </div>
 
         <div class="post-actions">
-            <button class="action-btn" onclick="likePost(event)"><i class="fas fa-heart"></i> Like</button>
-            <button class="action-btn" onclick="commentPost(event)"><i class="fas fa-comment"></i> Comment</button>
-            <button class="action-btn" onclick="sharePost(event)"><i class="fas fa-share"></i> Share</button>
-            <button class="action-btn" onclick="savePost(event)"><i class="fas fa-bookmark"></i> Save</button>
+            <button class="action-btn"><i class="fas fa-heart"></i> Like</button>
+            <button class="action-btn"><i class="fas fa-comment"></i> Comment</button>
+            <button class="action-btn"><i class="fas fa-share"></i> Share</button>
+            <button class="action-btn"><i class="fas fa-bookmark"></i> Save</button>
         </div>
     `;
-    
-    // Insert new post at the top
+
     const postsContainer = document.getElementById('postsContainer');
-    postsContainer.insertBefore(newPost, postsContainer.firstChild);
-    
-    // Clear input
-    postInput.value = '';
-    postInput.style.height = 'auto';
-    
-    console.log('Post created:', postText);
+    if (prepend) {
+        postsContainer.insertBefore(newPost, postsContainer.firstChild);
+    } else {
+        postsContainer.appendChild(newPost);
+    }
+
+    // attach listeners on the new post's buttons
+    newPost.querySelectorAll('.action-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const text = this.textContent.trim();
+            if (text.includes('Like')) {
+                likePost({ target: btn });
+            } else if (text.includes('Comment')) {
+                commentPost({ target: btn });
+            } else if (text.includes('Share')) {
+                sharePost({ target: btn });
+            } else if (text.includes('Save')) {
+                savePost({ target: btn });
+            }
+        });
+    });
+}
+
+function loadPostsFromStorage() {
+    const posts = JSON.parse(localStorage.getItem('posts') || '[]');
+    posts.forEach(p => renderPost(p, false));
 }
 
 // Like Post Functionality
@@ -116,7 +201,12 @@ postInput.addEventListener('keydown', function(e) {
     }
 });
 
-// Add click listeners to existing posts
+// Load existing posts from storage when page loads
+window.addEventListener('DOMContentLoaded', function() {
+    loadPostsFromStorage();
+});
+
+// Delegate click events for the existing buttons (useful for static posts)
 document.querySelectorAll('.action-btn').forEach(btn => {
     btn.addEventListener('click', function() {
         const text = this.textContent.trim();
@@ -148,4 +238,4 @@ document.querySelectorAll('.btn-small').forEach(btn => {
     });
 });
 
-console.log('SocialHub loaded successfully!');
+console.log('Basher loaded successfully!');

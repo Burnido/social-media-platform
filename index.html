@@ -35,8 +35,8 @@
         <aside class="left-sidebar">
             <div class="user-profile">
                 <img src="https://via.placeholder.com/80" alt="Profile" class="profile-img">
-                <h3>John Doe</h3>
-                <p>@johndoe</p>
+                <h3>Manav Awana</h3>
+                <p>@Burnido</p>
                 <div class="user-stats">
                     <div class="stat">
                         <span class="stat-value">1.2K</span>
@@ -71,12 +71,16 @@
         <main class="feed">
             <!-- Create Post -->
             <div class="post-creator">
-                <img src="https://via.placeholder.com/50" alt="Your Profile" class="creator-img">
+                <img src="https://www.cbr.com/jjk-satoru-gojo-strongest-abilities-ranked/" alt="Your Profile" class="creator-img">
                 <div class="input-group">
                     <textarea id="postInput" placeholder="What's on your mind?" rows="3"></textarea>
+                    <!-- preview for selected photo -->
+                    <div class="photo-preview" id="photoPreview"></div>
+                    <!-- hidden file field used by JS -->
+                    <input type="file" id="photoInput" accept="image/*" style="display:none">
                     <div class="creator-actions">
                         <div class="action-icons">
-                            <button title="Add Photo"><i class="fas fa-image"></i></button>
+                            <button title="Add Photo" id="addPhotoBtn"><i class="fas fa-image"></i></button>
                             <button title="Add Video"><i class="fas fa-video"></i></button>
                             <button title="Add Emoji"><i class="fas fa-face-smile"></i></button>
                             <button title="Add Poll"><i class="fas fa-chart-bar"></i></button>
