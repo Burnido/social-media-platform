@@ -1,3 +1,44 @@
+// ===================== AUTHENTICATION CHECK =====================
+// Redirect to login if user is not authenticated
+function checkAuthentication() {
+    const currentUser = localStorage.getItem('currentUser');
+    if (!currentUser) {
+        window.location.href = 'login.html';
+        return null;
+    }
+    return JSON.parse(currentUser);
+}
+
+// Initialize authentication on page load
+const currentUser = checkAuthentication();
+
+// Set up user display and logout
+function setupUserDisplay() {
+    if (!currentUser) return;
+    
+    const usernameDisplay = document.getElementById('displayUsername');
+    const userHandleDisplay = document.getElementById('displayUserHandle');
+    const userInfoDisplay = document.getElementById('userInfoDisplay');
+    const logoutBtn = document.getElementById('logoutBtn');
+    
+    if (usernameDisplay) usernameDisplay.textContent = currentUser.username;
+    if (userHandleDisplay) userHandleDisplay.textContent = '@' + currentUser.username;
+    if (userInfoDisplay) userInfoDisplay.innerHTML = `<i class="fas fa-user-circle"></i> ${currentUser.username}`;
+    if (logoutBtn) {
+        logoutBtn.style.display = 'flex';
+        logoutBtn.addEventListener('click', logout);
+    }
+}
+
+// Logout function
+function logout() {
+    if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('currentUser');
+        window.location.href = 'login.html';
+    }
+}
+
+// ===================== POST FUNCTIONALITY =====================
 // small in-memory database stored in localStorage (temporary storage)
 let selectedImageData = null;
 
@@ -203,6 +244,7 @@ postInput.addEventListener('keydown', function(e) {
 
 // Load existing posts from storage when page loads
 window.addEventListener('DOMContentLoaded', function() {
+    setupUserDisplay();
     loadPostsFromStorage();
 });
 

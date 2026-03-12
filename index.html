@@ -26,6 +26,10 @@
                 <input type="text" placeholder="Search Basher...">
                 <button><i class="fas fa-search"></i></button>
             </div>
+            <div class="user-info-display" id="userInfoDisplay"></div>
+            <button class="logout-btn" id="logoutBtn" style="display: none;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
         </div>
     </nav>
 
@@ -35,15 +39,15 @@
         <aside class="left-sidebar">
             <div class="user-profile">
                 <img src="https://via.placeholder.com/80" alt="Profile" class="profile-img">
-                <h3>Manav Awana</h3>
-                <p>@Burnido</p>
+                <h3 id="displayUsername">User</h3>
+                <p id="displayUserHandle">@username</p>
                 <div class="user-stats">
                     <div class="stat">
-                        <span class="stat-value">1.2K</span>
-                        <span class="stat-label">Followers</span>
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Posts</span>
                     </div>
                     <div class="stat">
-                        <span class="stat-value">350</span>
+                        <span class="stat-value">0</span>
                         <span class="stat-label">Following</span>
                     </div>
                 </div>
