@@ -9,11 +9,9 @@ function checkAuthentication() {
     return JSON.parse(currentUser);
 }
 
-// Initialize authentication on page load
-const currentUser = checkAuthentication();
-
 // Set up user display and logout
 function setupUserDisplay() {
+    const currentUser = checkAuthentication();
     if (!currentUser) return;
     
     const usernameDisplay = document.getElementById('displayUsername');
