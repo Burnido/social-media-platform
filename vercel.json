@@ -1,0 +1,11 @@
+{
+  "buildCommand": "",
+  "outputDirectory": ".",
+  "public": true,
+  "routes": [
+    {
+      "src": "/?(?P<path>.*)",
+      "dest": "/index.html"
+    }
+  ]
+}
